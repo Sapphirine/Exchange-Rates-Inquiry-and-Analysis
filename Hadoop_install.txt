@@ -1,0 +1,30 @@
+ssh:
+
+generate DSA key:
+ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+Copy key:
+cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+Log in:
+ssh localhost
+
+Use brew to install hadoop:
+Please make sure your brew version is latest. If not, use
+brew update
+
+Config hadoop:
+1. open -a Xcode /usr/local/Cellar/hadoop/2.5.0/libexec/etc/hadoop/hadoop-env.sh
+
+add export HADOOP_PREFIX=/usr/local/hadoop 
+if you do this, hadoop version will have problem
+
+2. open -a Xcode /usr/local/Cellar/hadoop/2.5.0/libexec/etc/hadoop/core-site.xml
+
+3. open -a Xcode /usr/local/Cellar/hadoop/2.5.0/libexec/etc/hadoop/hdfs-site.xml
+
+cd /usr/local/Cellar/hadoop/2.5.0/libexec
+
+bin/hdfs namenode -format
+
+sbin/start-dfs.sh
+
+http://localhost:50070/
