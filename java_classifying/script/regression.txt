@@ -1,0 +1,33 @@
+$ mahout trainnb -i train-vectors -el -li labelindex -o model -ow -c
+
+mahout org.apache.mahout.classifier.sgd.TrainLogistic --passes 100 --rate 0.1 --lambda 0.001 --input /home/bigdata/openpricetoUSD.csv --output /home/bigdata/exchange_rate.model --target USDHKD --categories 4 --predictors USDBRL USDCAD USDDKK USDHUF USDJPY USDPLN USDSEK USDTRY --types n n n n n --features 5
+
+AUC = 0.64
+confusion: [[27.0, 20.0], [38.0, 57.0]]
+entropy: [[-0.7, -0.6], [-0.7, -0.6]]
+
+
+After removed non relevent predictors: X5 X7 X8
+
+AUC = 0.64
+confusion: [[24.0, 15.0], [41.0, 62.0]]
+entropy: [[-0.7, -0.7], [-0.7, -0.6]]
+
+adjust HKDUSD TO TWO CATEGORIES
+
+AUC = 0.67
+confusion: [[43.0, 28.0], [28.0, 43.0]]
+entropy: [[-0.7, -0.6], [-0.7, -0.6]]
+
+
+USDHKD ~ 
+0.035*Intercept Term + 0.207*USDBRL + 0.044*USDCAD + 0.207*USDDKK + 0.035*USDHUF + 0.207*USDPLN
+      Intercept Term 0.03499
+              USDBRL 0.20697
+              USDCAD 0.04407
+              USDDKK 0.20697
+              USDHUF 0.03499
+              USDPLN 0.20697
+
+
+mahout org.apache.mahout.classifier.sgd.RunLogistic --input /home/bigdata/input_data.csv  --model /home/bigdata/exchange_rate.model --auc --scores --confusion^C

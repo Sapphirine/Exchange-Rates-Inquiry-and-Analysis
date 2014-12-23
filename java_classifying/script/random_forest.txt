@@ -1,0 +1,22 @@
+hadoop fs -put /home/bigdata/HKDprediction_train_no_title.csv /project/
+
+bigdata@ubuntu:~/mahout-trunk$ mahout org.apache.mahout.classifier.df.tools.Describe -p /project/HKDprediction_train_no_title.csv -f /project/HKD.info_10 -d 9 N L
+
+bigdata@ubuntu:~/mahout-trunk$ ./bin/mahout buildforest -d /project/HKDprediction_train_no_title.csv  -ds /project/HKD.info_10 -t 50 -o /project/tree50
+
+14/12/20 14:26:06 INFO common.HadoopUtil: Deleting hdfs://localhost:9000/user/bigdata/tree100
+14/12/20 14:26:06 INFO mapreduce.BuildForest: Build Time: 0h 0m 33s 125
+14/12/20 14:26:06 INFO mapreduce.BuildForest: Forest num Nodes: 28540
+14/12/20 14:26:06 INFO mapreduce.BuildForest: Forest mean num Nodes: 285
+14/12/20 14:26:06 INFO mapreduce.BuildForest: Forest mean max Depth: 17
+14/12/20 14:26:06 INFO mapreduce.BuildForest: Storing the forest in: /project/tree100/forest.seq
+14/12/20 14:26:06 INFO driver.MahoutDriver: Program took 34839 ms (Minutes: 0.58065)
+
+
+bigdata@ubuntu:~/mahout-trunk$ hadoop fs -put /home/bigdata/HKDprediction_test_no_title.csv /project/
+
+
+bigdata@ubuntu:~/mahout-trunk$ ./bin/mahout testforest -d /project/HKDprediction_test_no_title.csv  -ds /project/HKD.info_10 -a -o /project/prediction_rf50
+
+
+

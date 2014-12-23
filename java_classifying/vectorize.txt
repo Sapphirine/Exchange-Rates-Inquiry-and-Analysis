@@ -1,0 +1,61 @@
+FileSystem fs = null;
+SequenceFile.Writer writer;
+Configuration conf = new Configuration();
+
+List<NamedVector> vectors = <train_nb>;
+
+// Write the data to SequenceFile
+try {
+    fs = FileSystem.get(conf);
+
+    Path path = new Path(<your path> + <your filename>);
+    writer = new SequenceFile.Writer(fs, conf, path, Text.class, VectorWritable.class);
+
+    VectorWritable vec = new VectorWritable();
+    for (NamedVector vector : dataVector) {
+
+        vec.set(vector);
+        writer.append(new Text(vector.getName()), vec);
+
+    }
+    writer.close();
+
+} catch (Exception e) {
+    System.out.println("ERROR: "+e);
+}
+
+String inputfiledata = Input_file_path;
+            String outputfile = output_path_for_sequence_file;
+            FileSystem fs = null;
+            SequenceFile.N Train_Vectors;
+            Configuration conf = new Configuration();
+            fs = FileSystem.get(conf);
+            Path path = new Path(outputfile);`enter code here`
+            writer = new SequenceFile.Writer(fs, conf, path, Text.class, VectorWritable.class);
+            VectorWritable vec = new VectorWritable();
+            List<NamedVector> vects = new ArrayList<NamedVector>();
+            try {
+                fr = new FileReader(inputfiledata);
+                br = new BufferedReader(fr);
+                s = null;
+                while((s=br.readLine())!=null){
+
+                    
+                    String spl[] = s.split("\\t");
+                    String key = spl[0];
+                    Integer val = 0;
+                    for(int k=1;k<spl.length;k++){
+                                colvalues[val] = Double.parseDouble(spl[k]);
+                                val++;
+                        }
+                    }
+                    NamedVector nmv = new NamedVector(new DenseVector(colvalues),key);
+                    vec.set(nmv);
+                    writer.append(new Text(nmv.getName()), vec);
+                }
+                            writer.close();
+
+            } catch (Exception e) {
+                System.out.println("ERROR: "+e);
+            }
+        }
